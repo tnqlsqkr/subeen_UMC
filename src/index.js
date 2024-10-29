@@ -1,7 +1,7 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import { missionController } from "./controllers/user.controller.js";
+import { missionController } from "./controllers/mission.controller.js";
 
 dotenv.config();
 

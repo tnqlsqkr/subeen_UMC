@@ -1,5 +1,5 @@
-import { addMission, getMission } from "../repositories/user.repository.js";
-import { responseFromMission } from "../dtos/user.dto.js";
+import { addMission, getMission } from "../repositories/mission.repository.js";
+import { responseFromMission } from "../dtos/mission.dto.js";
 
 export const createMission  = async (data) => {
   const addMissionId = await addMission({
