@@ -1,7 +1,7 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import { reviewController } from "./controllers/user.controller.js";
+import { reviewController } from "./controllers/review.controller.js";
 
 dotenv.config();
 

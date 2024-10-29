@@ -1,5 +1,5 @@
-import { addReview, getReview } from "../repositories/user.repository.js";
-import { responseFromReview } from "../dtos/user.dto.js";
+import { addReview, getReview } from "../repositories/review.repository.js";
+import { responseFromReview } from "../dtos/review.dto.js";
 
 export const createReview  = async (data) => {
   const addReviewId = await addReview({
