@@ -15,7 +15,7 @@ export const addMission = async (data) => {
     }
 
     const [result] = await pool.query(
-      `INSERT INTO review (store_id, reward, deadline, mission_spec) VALUES (?, ?, ?, ?);`,
+      `INSERT INTO mission (store_id, reward, deadline, mission_spec) VALUES (?, ?, ?, ?);`,
       [
         data.store_id,
         data.reward,
