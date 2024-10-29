@@ -1,7 +1,7 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from 'express'
-import { addStoreController } from "./controllers/user.controller.js";
+import { addStoreController } from "./controllers/store.controller.js";
 
 dotenv.config();
 
