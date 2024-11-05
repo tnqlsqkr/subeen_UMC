@@ -1,23 +1,27 @@
 export const bodyToUser = (body) =>{
-    const birth = new Date(body.bitrth);
+    const birth = new Date(body.birth);
 
     return {
         email : body.email,
         name : body.name,
         gender : body.gender,
+        birth : birth,
         address : body.address || "",
-        detailAddress : body.spec_Address || "",
+        spec_address : body.spec_address || "",
         phoneNumber : body.phoneNumber,
         preferences : body.preferences
     }
 }
 
-export const responseFromUser = (user, preferences) =>{
-    const foodCategoryNames = queryResult.map(item => item.name);
-
+export const responseFromUser = ({ member, preferences }) => {
+    const preferFoods = preferences.map(
+      (preference) => preference.foodCategory.name
+    );
+  
     return {
-        email :user.email,
-        name : user.name,
-        preferCategory : foodCategoryNames
-    }
-}
+      email: member.email,
+      name: member.name,
+      preferCategory: preferFoods,
+    };
+};
+  
