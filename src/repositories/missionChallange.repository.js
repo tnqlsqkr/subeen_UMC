@@ -37,7 +37,6 @@ export const modifyStatus = async (data) => {
 export const getStatus = async (modifyStatusId) => {
     try {
         const missionStatus = await prisma.memberMission.findFirstOrThrow({ where: { id: modifyStatusId } });
-
         return missionStatus;
     } catch (error) {
         console.error("Error fetching missionStatus:", error);
@@ -52,13 +51,13 @@ export const completeMission = async(data) => {
             where : {
               memberId : data.memberId,
               missionId : data.missionId,
-             status : "도전중",
+             status : "진행중",
             },
        });
 
        if(!existingMissionRecord){ return null;}
 
-       const updateMissionStatus = await prisma.memberMission.create({
+       const updateMissionStatus = await prisma.memberMission.update({
             where : {
               id : existingMissionRecord.id,
             },
