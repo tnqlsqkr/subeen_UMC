@@ -14,14 +14,14 @@ export const bodyToUser = (body) =>{
 }
 
 export const responseFromUser = ({ member, preferences }) => {
-    const preferFoods = preferences.map(
-      (preference) => preference.foodCategory.name
-    );
-  
-    return {
-      email: member.email,
-      name: member.name,
-      preferCategory: preferFoods,
-    };
+  const preferFoods = preferences.map(
+    (preference) => preference.foodCategory.name
+  );
+
+  return {
+    email: member.email,
+    name: member.name,
+    preferCategory: preferFoods,
+  };
 };
   

@@ -1,8 +1,10 @@
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
+
 import { PrismaClient } from "@prisma/client";
 
-export const prisma = new PrismaClient({ log: ["query"] });
+const prisma = new PrismaClient();
+export { prisma }; 
 
 dotenv.config();
 
