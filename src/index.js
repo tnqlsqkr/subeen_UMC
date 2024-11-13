@@ -12,6 +12,9 @@ import cookieParser from 'cookie-parser';
 import bcrypt from 'bcrypt'
 import session from 'express-session';
 import { prisma } from './db.config.js'
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 const app = express();
@@ -26,6 +29,16 @@ app.use(express.urlencoded({ extended: true })); // 'extended'를 true로 설정
 app.get('/', (req, res) => {
     res.send('Hello World!');
 =======
+app.use(cookieParser())
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: process.env.NODE_ENV === 'production',
+          maxAge: 1000 * 60 * 60 * 24
+  }
+}));
+
 app.use(cookieParser())
 app.use(session({
   secret: process.env.SESSION_SECRET,
