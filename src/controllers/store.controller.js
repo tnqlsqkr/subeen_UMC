@@ -1,6 +1,14 @@
-import { listStoreReviews } from "../services/store.service.js";
+import { createStore,listStoreReviews, listStoreMissionsService } from "../services/store.service.js";
 import { StatusCodes } from "http-status-codes";
-import { listStoreMissionsService } from "../services/store.service.js";
+import { bodyToStore } from "../dtos/store.dto.js";
+
+export const addStoreController = async (req, res, next) => {
+  console.log("해당 지역에 가게 추가를 요청합니다");
+  console.log("body:", req.body);
+
+  const user = await createStore(bodyToStore(req.body));
+  res.status(StatusCodes.OK).json({ result: user });
+};
 
 export const handleListStoreReviews = async (req, res, next) => {
   const reviews = await listStoreReviews(

@@ -1,5 +1,6 @@
 import { pool } from "../db.config.js";
 import { prisma } from "../db.config.js";
+import { ReviewListFetchError } from "../errors.js";
 
 export const addReview = async (data) => {
     try {
@@ -32,17 +33,23 @@ export const getReview = async (reviewId) => {
 
 //특정 사용자가 작성한 리뷰 조회 
 export const getUserReviews = async (memberId) => {
-    try{
+    try {
         const reviews = await prisma.review.findMany({
-            where : {memberId : memberId},
-            include : {user : true},
+            where: { memberId: memberId },
+            include: {
+                store: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
         });
         return reviews;
-    } catch(err){
-        console.log("Error fetching userReviews: ", error);
-        throw new Error("User Reviews not found");
+    } catch (error) {
+        console.error("Error fetching user reviews:", error);
+        throw new Error("리뷰 목록 조회 중 오류가 발생했습니다.");
     }
-}
+};
 
 //특정 가게의 모든 리뷰 조회
 export const getAllStoreReviews = async (storeId)=> {

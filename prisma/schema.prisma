@@ -12,89 +12,104 @@ model Member {
   name                String              @db.VarChar(20)
   gender              String              @db.VarChar(20)
   address             String              @db.VarChar(40)
-  specAddress        String?             @map("spec_address") @db.VarChar(40)
+  specAddress         String?             @map("spec_address") @db.VarChar(40)
   email               String              @unique(map: "email") @db.VarChar(50)
   phoneNumber         String              @map("phoneNumber") @db.VarChar(15)
   birth               DateTime            @db.Date
-
   userFavorCategories UserFavorCategory[]
+  reviews             Review[]            @relation("MemberReviews")
 
-  reviews           Review[]            @relation("MemberReviews")
+  memberMissions MemberMission[] 
   @@map("member")
 }
 
 model FoodCategory {
   id                  BigInt              @id @default(autoincrement())
   name                String              @db.VarChar(15)
-  createdAt          DateTime?           @db.DateTime(6) @map("created_at")
-  updatedAt          DateTime?           @db.DateTime(6) @map("updated_at")
+  createdAt           DateTime?           @map("created_at") @db.DateTime(6)
+  updatedAt           DateTime?           @map("updated_at") @db.DateTime(6)
   userFavorCategories UserFavorCategory[]
 
   @@map("food_category")
 }
 
 model UserFavorCategory {
-    id          BigInt        @id @default(autoincrement())
-    memberId    BigInt        @map("member_id")
-    categoryId  BigInt        @map("category_id")
-    createdAt   DateTime?     @default(now()) @db.DateTime(6) @map("created_at")
-    updatedAt   DateTime?     @default(now()) @db.DateTime(6) @map("updated_at")
+  id           BigInt       @id @default(autoincrement())
+  memberId     BigInt       @map("member_id")
+  categoryId   BigInt       @map("category_id")
+  createdAt    DateTime?    @default(now()) @map("created_at") @db.DateTime(6)
+  updatedAt    DateTime?    @default(now()) @map("updated_at") @db.DateTime(6)
+  foodCategory FoodCategory @relation(fields: [categoryId], references: [id])
+  member       Member       @relation(fields: [memberId], references: [id])
 
-    member       Member        @relation(fields: [memberId], references: [id])
-    foodCategory FoodCategory  @relation(fields: [categoryId], references: [id])
-
-    @@map("member_prefer")
-    @@index([memberId], name: "member_id")
-    @@index([categoryId], name: "category_id")
+  @@index([memberId], map: "member_id")
+  @@index([categoryId], map: "category_id")
+  @@map("member_prefer")
 }
 
 model Store {
-    id         BigInt     @id @default(autoincrement())
-    name       String?    @db.VarChar(50)
-    address    String?    @db.VarChar(50)
-    score      Float?
-    createdAt  DateTime?  @default(now()) @db.DateTime(6) @map("created_at")
-    updatedAt  DateTime?  @default(now()) @db.DateTime(6) @map("updated_at")
+  id        BigInt    @id @default(autoincrement())
+  name      String?   @db.VarChar(50)
+  address   String?   @db.VarChar(50)
+  score     Float?
+  createdAt DateTime? @default(now()) @map("created_at") @db.DateTime(6)
+  updatedAt DateTime? @default(now()) @map("updated_at") @db.DateTime(6)
+  missions  Mission[] @relation("StoreMissions")
+  reviews   Review[]  @relation("StoreReviews")
 
-    reviews           Review[]            @relation("StoreReviews")
-    missions          Mission[]           @relation("StoreMissions")
-    @@map("store")
+  @@map("store")
 }
 
 model Review {
-    id       BigInt  @id @default(autoincrement())
-    memberId BigInt? 
-    storeId  BigInt? 
-    body     String? @db.Text
-    score    Float?
+  id       BigInt  @id @default(autoincrement())
+  memberId BigInt?
+  storeId  BigInt?
+  body     String? @db.Text
+  score    Float?
+  member   Member? @relation("MemberReviews", fields: [memberId], references: [id])
+  store    Store?  @relation("StoreReviews", fields: [storeId], references: [id])
 
-    member   Member? @relation("MemberReviews", fields: [memberId], references: [id])
-    store    Store?  @relation("StoreReviews", fields: [storeId], references: [id])
-
-    @@map("review")
-    @@index([storeId])
+  @@index([storeId])
+  @@index([memberId], map: "review_memberId_fkey")
+  @@map("review")
 }
 
 model Mission {
-    id       BigInt  @id @default(autoincrement())
-    storeId  BigInt? @map("store_id")
-    reward   Int?
-    deadline  DateTime? @db.DateTime(6)
-    missionSpec  String? @db.Text @map("mission_spec")
-    createdAt  DateTime? @default(now()) @db.DateTime(6) @map("created_at")
-    updatedAt   DateTime?  @default(now()) @db.DateTime(6)@map("updated_at")
+  id          BigInt    @id @default(autoincrement())
+  storeId     BigInt?   @map("store_id")
+  reward      Int?
+  deadline    DateTime? @db.DateTime(6)
+  missionSpec String?   @map("mission_spec") @db.Text
+  createdAt   DateTime? @default(now()) @map("created_at") @db.DateTime(6)
+  updatedAt   DateTime? @default(now()) @map("updated_at") @db.DateTime(6)
+  store       Store?    @relation("StoreMissions", fields: [storeId], references: [id])
 
-    store    Store?  @relation(fields: [storeId], references: [id], name : "StoreMissions")
-
-    @@map("mission")
-    @@index([storeId])
+  @@index([storeId])
+  memberMissions MemberMission[] 
+  @@map("mission")
 }
 
 model Region {
-  id          BigInt    @id @default(autoincrement())
-  name        String?   @db.VarChar(20)
-  createdAt  DateTime? @default(now()) @db.DateTime(6) @map("created_at")
-  updatedAt  DateTime? @default(now()) @db.DateTime(6) @map("updated_at")
+  id        BigInt    @id @default(autoincrement())
+  name      String?   @db.VarChar(20)
+  createdAt DateTime? @default(now()) @map("created_at") @db.DateTime(6)
+  updatedAt DateTime? @default(now()) @map("updated_at") @db.DateTime(6)
 
   @@map("region")
+}
+
+model MemberMission {
+    id        BigInt    @id @default(autoincrement())
+    memberId  BigInt?   @map("member_id")
+    missionId BigInt?   @map("mission_id")
+    status    String?   @db.VarChar(15)
+    createdAt DateTime? @map("created_at") @db.DateTime(6)
+    updatedAt DateTime? @map("updated_at") @db.DateTime(6)
+    
+    member    Member?   @relation(fields: [memberId], references: [id])
+    mission   Mission?  @relation(fields: [missionId], references: [id])
+
+    @@index([memberId])
+    @@index([missionId])
+    @@map("member_mission")
 }

@@ -1,4 +1,4 @@
-import { modifyStatus, getStatus } from "../repositories/MissionChallenge.repository.js";
+import { modifyStatus, getStatus } from "../repositories/missionChallange.repository.js";
 import { responseFromMissionStatus } from "../dtos/MissionChallenge.dto.js";
 import { completeMission } from "../repositories/missionChallange.repository.js";
 
@@ -19,6 +19,17 @@ export const createMissionStatus  = async (data) => {
 
 
 export const markMissionAsCompleteService = async (data) => {
-  const missionId = await completeMission(data);
-  return missionId; 
+  try {
+      if (!data.member_id || !data.mission_id) {
+          throw new MissionStatusUpdateError("필수 정보가 누락되었습니다.");
+      }
+
+      const missionId = await completeMission(data);
+      return missionId;
+  } catch (error) {
+      if (error instanceof MissionStatusUpdateError) {
+          throw error;
+      }
+      throw new Error("미션 완료 처리 중 오류가 발생했습니다.");
+  }
 };
