@@ -2,6 +2,9 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import cookieParser from 'cookie-parser';
+import bcrypt from 'bcrypt';
+import session from 'express-session';
+import { prisma } from './db.config.js';
 
 import { handleUserSignUp } from "./controllers/user.controller.js";
 import { handleListStoreReviews } from "./controllers/store.controller.js";

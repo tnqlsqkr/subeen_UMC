@@ -14,6 +14,7 @@ model Member {
   address             String              @db.VarChar(40)
   specAddress         String?             @map("spec_address") @db.VarChar(40)
   email               String              @unique(map: "email") @db.VarChar(50)
+  password            String              @db.VarChar(60)
   phoneNumber         String              @map("phoneNumber") @db.VarChar(15)
   birth               DateTime            @db.Date
   userFavorCategories UserFavorCategory[]
