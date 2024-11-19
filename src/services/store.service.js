@@ -9,7 +9,7 @@ export const createStore = async (data) => {
     id: data.id,
     name: data.name,
     address: data.address,
-    region_Id : data.region_Id,
+    regionId : data.regionId,
     score : data.score
   });
 

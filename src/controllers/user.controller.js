@@ -3,7 +3,7 @@ import { bodyToUser } from "../dtos/user.dto.js";
 import { userSignUp } from "../services/user.service.js";
 
 export const handleUserSignUp = async (req,res, next) => {
-      /*
+    /*
     #swagger.summary = '회원 가입 API';
     #swagger.requestBody = {
       required: true,
@@ -14,10 +14,11 @@ export const handleUserSignUp = async (req,res, next) => {
             properties: {
               email: { type: "string" },
               name: { type: "string" },
+              password : {type : "string"},
               gender: { type: "string" },
               birth: { type: "string", format: "date" },
               address: { type: "string" },
-              detailAddress: { type: "string" },
+              specAddress: { type: "string" },
               phoneNumber: { type: "string" },
               preferences: { type: "array", items: { type: "number" } }
             }
@@ -37,6 +38,7 @@ export const handleUserSignUp = async (req,res, next) => {
               success: {
                 type: "object",
                 properties: {
+                  id : {type : "number"},
                   email: { type: "string" },
                   name: { type: "string" },
                   preferCategory: { type: "array", items: { type: "string" } }

@@ -4,7 +4,7 @@ import { ActiveMissionListFetchError } from "../errors.js";
 
 export const createMission  = async (data) => {
     const addMissionId = await addMission({
-        store_id : data.store_id,
+      store_id : data.store_id,
       reward : data.reward,
       deadline : data.deadline,
       mission_spec : data.mission_spec,

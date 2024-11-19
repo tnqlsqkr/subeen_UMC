@@ -2,10 +2,10 @@ export const bodyToMission = (body) => {
 	const deadline = new Date(body.deadline);
 	
   return {
-	  store_id : body.store_id,
+	storeId : body.storeId,
     reward : body.reward,
     deadline,
-    mission_spec : body.mission_spec,
+    missionSpec : body.missionSpec,
   };
 };
 

@@ -3,7 +3,7 @@ export const bodyToStore = (body) => {
   return {
       name: body.name,
       address: body.address,
-      region_Id: parseInt(body.regionId),
+      regionId: parseInt(body.regionId),
       score: parseFloat(body.score)      
   };
 };

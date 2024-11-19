@@ -7,7 +7,7 @@ export const addStore = async (data) => {
             data: {
                 name: data.name,
                 address: data.address,
-                regionId: data.region_Id, 
+                regionId: data.regionId, 
                 score: data.score
             }
         });

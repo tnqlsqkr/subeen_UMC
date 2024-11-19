@@ -10,6 +10,7 @@ import {
 export const userSignUp = async (data) =>{
     const joinUserId = await addUser({
         email : data.email,
+        password : data.password,
         name : data.name,
         gender : data.gender,
         birth : data.birth,

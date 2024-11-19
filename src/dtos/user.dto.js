@@ -3,6 +3,7 @@ export const bodyToUser = (body) =>{
 
     return {
         email : body.email,
+        password : body.password,
         name : body.name,
         gender : body.gender,
         birth : birth,
@@ -19,6 +20,7 @@ export const responseFromUser = ({ member, preferences }) => {
   );
 
   return {
+    id: member.id.toString(),
     email: member.email,
     name: member.name,
     preferCategory: preferFoods,

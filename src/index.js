@@ -81,6 +81,7 @@ app.get('/', (req, res) => {
 //게시글 작성
 app.post("/api/v1/users/signup", handleUserSignUp);
 
+//상점 리뷰 목록 조회
 app.get("/api/v1/stores/:storeId/reviews", handleListStoreReviews);
 
 //가게의 미션 목록 조회
@@ -101,7 +102,7 @@ app.post("/api/stores/mission", missionController);
 //가게의 미션을 도전 중인 미션에 추가
 app.post("/api/missions/status", missionStatusController);
 
-// 미션 완료 처리 라우트 추가
+// 미션 완료 처리
 app.patch("/api/v1/missions/complete", completeMissionController);
 
 // 내가 작성한 리뷰 목록 조회
