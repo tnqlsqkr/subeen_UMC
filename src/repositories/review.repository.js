@@ -56,8 +56,9 @@ export const getAllStoreReviews = async (storeId)=> {
     try {
         const reviews = await prisma.review.findMany({
             where : {storeId : storeId},
-            include : { memberr : true},
+            include : { member : true},
         });
+        return reviews; 
     } catch(error){
         console.log("Error fetching get all store reviews: ", error);
         throw new Error("Store reviews not found");

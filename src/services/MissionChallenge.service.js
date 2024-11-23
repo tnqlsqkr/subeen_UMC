@@ -4,9 +4,9 @@ import { completeMission } from "../repositories/missionChallange.repository.js"
 
 export const createMissionStatus  = async (data) => {
   const modifyStatusId = await modifyStatus({
-	  member_id : body.member_id,
-    mission_id : body.mission_id,
-    status : body.staus,
+	  member_id : data.member_id,
+    mission_id : data.mission_id,
+    status : data.status,
   });
 
   if (modifyStatusId === null) {

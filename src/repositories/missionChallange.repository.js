@@ -6,26 +6,27 @@ export const modifyStatus = async (data) => {
     try {
         const existingMission = await prisma.memberMission.findFirst({ 
             where: {
-                memberId: data.member_id,
-                missionId : data.mission_id,
-                status : "도전중"
+                memberId: BigInt(data.member_id),
+                missionId : BigInt(data.mission_id)
             } 
         });
     
         if (!existingMission) {
-          return null;
+            const newMission = await prisma.memberMission.create({
+                data: {
+                    memberId: BigInt(data.member_id),
+                    missionId: BigInt(data.mission_id),
+                    status: "진행중",
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                }
+            });
+            return newMission.id;
         }
       
-        const newMissionStatus = await prisma.memberMission.update({
-            where :{
-                id : existingMission.id,
-            },
-            data: {
-                status : "진행중"
-            } 
-        });
-
-        return newMissionStatus.id;   
+        if (existingMission.status === "진행중" || existingMission.status === "진행 완료") {
+            return null;
+        }
     
     } catch (err) {
         throw new Error(

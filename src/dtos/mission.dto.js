@@ -9,16 +9,16 @@ export const bodyToMission = (body) => {
   };
 };
 
-export const responseFromStoreMissions = (missions) => {
+export const responseFromMission = (mission) => {
     return {
-        data: missions.map(mission => ({
-            id: mission.id,
-            storeId: mission.storeId,
-            reward: mission.reward,
+        data: {
+            id: mission.id.toString(),
+            storeId: mission.storeId.toString(),
+            reward: Number(mission.reward),
             deadline: mission.deadline,
             missionSpec: mission.missionSpec,
             status: mission.status,
-        })),
+        },
     };
 };
 

@@ -15,7 +15,7 @@ export const createReview  = async (data) => {
   }
 
   const review = await getReview(addReviewId);
-  return responseFromReview([review]);
+  return responseFromReviews([review]);
 };
 
 export const listUserReviewsService = async (memberId) => {

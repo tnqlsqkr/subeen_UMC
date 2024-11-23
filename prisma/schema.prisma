@@ -53,11 +53,14 @@ model Store {
   name      String?   @db.VarChar(50)
   address   String?   @db.VarChar(50)
   score     Float?
+  regionId  BigInt?   @map("region_id")
+  region    Region?   @relation("StoreRegion", fields: [regionId], references: [id])
   createdAt DateTime? @default(now()) @map("created_at") @db.DateTime(6)
   updatedAt DateTime? @default(now()) @map("updated_at") @db.DateTime(6)
   missions  Mission[] @relation("StoreMissions")
   reviews   Review[]  @relation("StoreReviews")
 
+  @@index([regionId])
   @@map("store")
 }
 
@@ -95,6 +98,7 @@ model Region {
   name      String?   @db.VarChar(20)
   createdAt DateTime? @default(now()) @map("created_at") @db.DateTime(6)
   updatedAt DateTime? @default(now()) @map("updated_at") @db.DateTime(6)
+  stores    Store[]   @relation("StoreRegion")
 
   @@map("region")
 }

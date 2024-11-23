@@ -35,6 +35,10 @@ export const addStoreController = async (req, res, next) => {
                         type: "object",
                         properties: {
                             id: { type: "number" },
+                            name: { type: "string" },
+                            address: { type: "string" },
+                            score: { type: "number" },
+                            regionId: { type: "number" }
                         }
                     } 
                 }

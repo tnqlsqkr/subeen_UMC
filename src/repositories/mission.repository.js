@@ -4,10 +4,10 @@ import { ActiveMissionListFetchError } from "../errors.js";
 
 export const addMission = async (data) => {
     const created = await prisma.mission.create({ data: {
-        storeId: data.store_id,
+        storeId: data.storeId,
    	    reward: data.reward,
     	deadline: data.deadline,
-    	missionSpec: data.mission_spec
+    	missionSpec: data.missionSpec
 	} 
     });
     return created.id;

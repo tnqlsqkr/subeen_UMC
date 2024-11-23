@@ -1,13 +1,13 @@
 import { addMission, getMission, getInProcessMissions } from "../repositories/mission.repository.js";
-import { responseFromInProcessMissions } from "../dtos/mission.dto.js";
+import { responseFromMission,responseFromInProcessMissions } from "../dtos/mission.dto.js";
 import { ActiveMissionListFetchError } from "../errors.js"; 
 
 export const createMission  = async (data) => {
     const addMissionId = await addMission({
-      store_id : data.store_id,
+      storeId : data.storeId,
       reward : data.reward,
       deadline : data.deadline,
-      mission_spec : data.mission_spec,
+      missionSpec : data.missionSpec,
     });
   
     if (addMissionId === null) {
