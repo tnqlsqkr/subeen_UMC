@@ -14,7 +14,7 @@ model Member {
   address             String              @db.VarChar(40)
   specAddress         String?             @map("spec_address") @db.VarChar(40)
   email               String              @unique(map: "email") @db.VarChar(50)
-  password            String              @db.VarChar(60)
+  password            String?             @db.VarChar(60)
   phoneNumber         String              @map("phoneNumber") @db.VarChar(15)
   birth               DateTime            @db.Date
   userFavorCategories UserFavorCategory[]
@@ -117,4 +117,13 @@ model MemberMission {
     @@index([memberId])
     @@index([missionId])
     @@map("member_mission")
+}
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String   @db.VarChar(512)
+  expiresAt DateTime @map("expires_at")
+
+  @@map("session")
 }
