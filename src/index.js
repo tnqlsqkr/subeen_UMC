@@ -8,7 +8,7 @@ app.get('/', (req,res)=>{
 });
 
 app.get('/hello',(req,res)=> {
-    res.send("hi");
+    res.send("hi, nice to meet you");
 })
 app.listen(port,()=>{
     console.log(`Example app listening on port ${port}`);
